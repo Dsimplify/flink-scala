@@ -1,0 +1,7 @@
+# Project exclude paths
+/target/
+flink.iml
+flink-scala.iml
+flink.ipr
+flink.iws
+.idea
