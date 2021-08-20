@@ -10,25 +10,35 @@ import scala.util.Random
 object Flink04_Source_MySource {
     def main(args: Array[String]): Unit = {
 
+        // 1. 创建执行环境
         val env: StreamExecutionEnvironment = StreamExecutionEnvironment.getExecutionEnvironment
+        // 设置执行并行度
         env.setParallelism(1)
 
+        // 2. 处理数据
+        // 自定义数据源
         val result: DataStream[WaterSensor] = env.addSource(new MySourceFunction)
 
+        // 3. 打印结果
         result.print()
 
-        env.execute()
+        // 4. 执行
+        env.execute("s")
     }
 
-    class MySourceFunction extends  SourceFunction[WaterSensor] {
-
+    // 自定义数据源
+    class MySourceFunction extends SourceFunction[WaterSensor] {
         var flag = true
-        override def run(sourceContext: SourceFunction.SourceContext[WaterSensor]): Unit = {
+        override def run(ctx: SourceFunction.SourceContext[WaterSensor]): Unit = {
             while (flag) {
-                sourceContext.collect(
-                    WaterSensor("sensor_" + (Random.nextInt(3) + 1), System.currentTimeMillis(), 40 + Random.nextInt(10))
+                ctx.collect(
+                    WaterSensor(
+                        "s" + new Random().nextInt(3),
+                        1577844111,
+                        new Random().nextInt(5) + 40
+                    )
                 )
-                Thread.sleep(1000L)
+                Thread.sleep(100)
             }
         }
 
@@ -36,6 +46,7 @@ object Flink04_Source_MySource {
             flag = false
         }
     }
+
 
     case class WaterSensor(id: String, ts: Long, vc: Int)
 

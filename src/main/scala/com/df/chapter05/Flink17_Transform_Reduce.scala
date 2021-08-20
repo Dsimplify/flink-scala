@@ -1,9 +1,11 @@
 package com.df.chapter05
 
+import org.apache.flink.api.java.tuple.Tuple
 import org.apache.flink.streaming.api.scala._
 
 object Flink17_Transform_Reduce {
     def main(args: Array[String]): Unit = {
+
         // 1.创建执行环境
         val env: StreamExecutionEnvironment = StreamExecutionEnvironment.getExecutionEnvironment
         env.setParallelism(2)
@@ -22,16 +24,21 @@ object Flink17_Transform_Reduce {
         // 因此，不需要将数据集类型物理打包为键和值。
         // key是“虚拟的”：它们被定义为指导分组操作符的实际数据上的函数。
         val keyDS: KeyedStream[WaterSensor, String] = mapDS.keyBy(_.id)
-        keyDS.print()
+        val keyDS01: KeyedStream[WaterSensor, Tuple] = mapDS.keyBy(0)
+        //keyDS.print()
+        //keyDS01.print()
+
 
         keyDS.reduce(
             (a, b) => {
-                println(a + "<===>" + b)
+                //println(a + "<===>" + b)
                 WaterSensor(a.id, System.currentTimeMillis(), a.vc + b.vc)
             }
         ).print("reduce")
 
+        // 4.开始执行
         env.execute()
     }
+
     case class WaterSensor(id: String, ts: Long, vc: Int)
 }

@@ -1,6 +1,7 @@
 package com.df.chapter05
 
-import org.apache.flink.api.common.functions.MapFunction
+import org.apache.flink.api.common.functions.{MapFunction, RichMapFunction}
+import org.apache.flink.configuration.Configuration
 import org.apache.flink.streaming.api.scala._
 
 object Flink06_Transform_MapFunction {
@@ -13,7 +14,7 @@ object Flink06_Transform_MapFunction {
         val lineDS: DataStream[String] = env.readTextFile("input/sensor-data.log")
 
         //3. 处理逻辑
-        val result: DataStream[WaterSensor] = lineDS.map(new MyMapFunction)
+        val result: DataStream[WaterSensor] = lineDS.map(new MyMapFunction1)
 
         result.print()
 
@@ -21,11 +22,23 @@ object Flink06_Transform_MapFunction {
         env.execute()
     }
 
+
+    //
     class MyMapFunction extends MapFunction[String, WaterSensor] {
         override def map(value: String): WaterSensor = {
-            val datas: Array[String] = value.split(",")
-            WaterSensor(datas(0),datas(1).toLong,datas(2).toInt)
+            val list: Array[String] = value.split(",")
+            WaterSensor(list(0), list(1).toLong, list(2).toInt)
         }
+    }
+
+    //
+    class MyMapFunction1 extends RichMapFunction[String, WaterSensor] {
+        override def map(value: String): WaterSensor = {
+            val list: Array[String] = value.split(",")
+            WaterSensor(list(0), list(1).toLong, list(2).toInt)
+        }
+
+        override def open(parameters: Configuration): Unit = super.open(parameters)
     }
 
     case class WaterSensor(id: String, ts: Long, vc: Int)

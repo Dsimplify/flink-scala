@@ -1,4 +1,10 @@
-hello scala
-hello flink
-hello world
-hi java
+sensor_1,12,10
+sensor_1,13,20
+sensor_2,14,30
+sensor_1,15,40
+sensor_2,16,50
+sensor_2,17,60
+sensor_1,18,70
+sensor_3,19,80
+sensor_1,20,90
+sensor_3,21,100

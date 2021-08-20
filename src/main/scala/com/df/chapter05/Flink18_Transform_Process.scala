@@ -24,19 +24,19 @@ object Flink18_Transform_Process {
 
        val keyDS: KeyedStream[WaterSensor, String] = mapDS.keyBy(_.id)
 
-        keyDS.print()
+        //keyDS.print()
 
         keyDS.process(new MyKeyedProcessFunction).print()
 
 
-
+        // 4. 开始执行
         env.execute()
 
     }
 
     class MyKeyedProcessFunction extends KeyedProcessFunction[String, WaterSensor, String] {
         override def processElement(value: WaterSensor, ctx: KeyedProcessFunction[String, WaterSensor, String]#Context, out: Collector[String]): Unit = {
-            out.collect("i am coming, 分组的key是=" + ctx.getCurrentKey + ", 数据=" + value)
+            out.collect("分组key = " + ctx.getCurrentKey + "," + "value = " + value )
         }
     }
 

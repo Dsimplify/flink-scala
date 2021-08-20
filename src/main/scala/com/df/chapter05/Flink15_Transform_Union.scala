@@ -15,11 +15,13 @@ object Flink15_Transform_Union {
         val numDS3: DataStream[Int] = env.fromCollection(List(17, 18, 19, 110))
 
 
+        // 3. 处理逻辑
         val result: DataStream[Int] = numDS1.union(numDS2).union(numDS3)
 
-        //result.print()
-        numDS1.print()
+        result.print()
+        // numDS1.print()
 
+        // 4. 开始执行
         env.execute()
     }
 }
