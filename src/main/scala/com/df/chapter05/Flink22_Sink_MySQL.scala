@@ -34,7 +34,8 @@ object Flink22_Sink_MySQL {
         var pstmt: PreparedStatement = _
 
         override def open(parameters: Configuration): Unit = {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/my_test?serverTimezone=Asia/Shanghai", "root", "123456")
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/my_test?serverTimezone=Asia/Shanghai"
+                , "root", "123456")
             pstmt = conn.prepareStatement("insert into test1(id, ts, vc) VALUES(?,?,?)")
         }
 

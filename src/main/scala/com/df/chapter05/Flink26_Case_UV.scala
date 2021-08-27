@@ -41,17 +41,27 @@ object Flink26_Case_UV {
             .process(new MyKeyedProcessFunction)
             .print()
 
+        // 开始执行
         env.execute()
 
     }
+
+    // 自己定义处理逻辑
     class MyKeyedProcessFunction extends KeyedProcessFunction[String, (String, Long), Long] {
         var uvCount = mutable.Set[Long]()
 
-        override def processElement(value: (String, Long), ctx: KeyedProcessFunction[String, (String, Long), Long]#Context, out: Collector[Long]): Unit = {
+        override def processElement(value: (String, Long),
+                                    ctx: KeyedProcessFunction[String, (String, Long), Long]#Context,
+                                    out: Collector[Long]): Unit = {
             uvCount.add(value._2)
             out.collect(uvCount.size)
         }
     }
 
-    case class UserBehavior(userId: Long, itemId: Long, categoryId: Int, behavior: String, timestamp: Long)
+    // 样例类
+    case class UserBehavior(userId: Long,
+                            itemId: Long,
+                            categoryId: Int,
+                            behavior: String,
+                            timestamp: Long)
 }

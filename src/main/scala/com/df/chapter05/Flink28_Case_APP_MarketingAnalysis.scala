@@ -41,6 +41,7 @@ object Flink28_Case_APP_MarketingAnalysis {
                         System.currentTimeMillis()
                     )
                 )
+                Thread.sleep(500)
             }
         }
 

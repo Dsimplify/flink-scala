@@ -11,11 +11,13 @@ object Flink08_Transform_FlatMap {
 
         // 2.读取数据
         val list: DataStream[List[Int]] = env.fromCollection(
-            List(
+            Seq(
                 List(1, 2, 3, 4),
                 List(5, 6, 7)
             )
         )
+
+        //list.print()
 
         // 3. 处理数据逻辑
         val result: DataStream[Int] = list.flatMap(list => list)
