@@ -11,7 +11,7 @@ object Flink07_Transform_RichMapFunction {
         val env: StreamExecutionEnvironment = StreamExecutionEnvironment.getExecutionEnvironment
 
         // 2. 读取数据
-        val socket: DataStream[String] = env.socketTextStream("localhost",9999)
+        val socket: DataStream[String] = env.socketTextStream("localhost", 9999)
 
         // 3. 处理数据逻辑
         val result: DataStream[WaterSensor] = socket.map(new MyMapFunction)
@@ -43,5 +43,6 @@ object Flink07_Transform_RichMapFunction {
         }
     }
 
-    case class WaterSensor (id: String, ts: Long, vc: Int)
+    case class WaterSensor(id: String, ts: Long, vc: Int)
+
 }

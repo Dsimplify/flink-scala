@@ -51,4 +51,5 @@ object Flink30_Case_AdClickAnalysis {
                            province: String,
                            city: String,
                            timestamp: Long)
+
 }

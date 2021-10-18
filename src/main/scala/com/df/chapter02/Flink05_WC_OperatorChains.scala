@@ -10,7 +10,7 @@ object Flink05_WC_OperatorChains {
         val env: StreamExecutionEnvironment = StreamExecutionEnvironment.getExecutionEnvironment
 
         // 2.读取数据
-        val socket: DataStream[String] = env.socketTextStream("localhost",9999)
+        val socket: DataStream[String] = env.socketTextStream("localhost", 9999)
 
         // 3.执行逻辑
         val WordDS: DataStream[String] = socket.flatMap(a => a.split(" ")).setParallelism(2)

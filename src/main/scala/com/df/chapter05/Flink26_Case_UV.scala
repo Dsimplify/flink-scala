@@ -37,9 +37,9 @@ object Flink26_Case_UV {
 
         //3.3 分组
         uvDS
-            .keyBy(_._1)
-            .process(new MyKeyedProcessFunction)
-            .print()
+          .keyBy(_._1)
+          .process(new MyKeyedProcessFunction)
+          .print()
 
         // 开始执行
         env.execute()
@@ -64,4 +64,5 @@ object Flink26_Case_UV {
                             categoryId: Int,
                             behavior: String,
                             timestamp: Long)
+
 }

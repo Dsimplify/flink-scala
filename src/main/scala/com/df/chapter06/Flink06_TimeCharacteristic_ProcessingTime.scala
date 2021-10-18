@@ -37,5 +37,6 @@ object Flink06_TimeCharacteristic_ProcessingTime {
         env.execute()
     }
 
-    case class WaterSensor (id: String, ts: Long, vc: Int)
+    case class WaterSensor(id: String, ts: Long, vc: Int)
+
 }

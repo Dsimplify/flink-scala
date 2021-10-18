@@ -25,17 +25,17 @@ object Flink03_Window_AggFunction {
                 )
             }
         )
-//
-//        waterSensorDS
-//          .map(data => (data.id, 1))
-//          .keyBy(_._1)
-//          .timeWindow(Time.seconds(10))
-//          .reduce(new ReduceFunction[(String, Int)] {
-//              override def reduce(value1: (String, Int), value2: (String, Int)): (String, Int) = {
-//                  (value1._1, value1._2 + value2._2)
-//              }
-//          })
-//          .print()
+        //
+        //        waterSensorDS
+        //          .map(data => (data.id, 1))
+        //          .keyBy(_._1)
+        //          .timeWindow(Time.seconds(10))
+        //          .reduce(new ReduceFunction[(String, Int)] {
+        //              override def reduce(value1: (String, Int), value2: (String, Int)): (String, Int) = {
+        //                  (value1._1, value1._2 + value2._2)
+        //              }
+        //          })
+        //          .print()
 
         val aggDS: WindowedStream[(String, Int), String, TimeWindow] = waterSensorDS
           .map(data => (data.id, 1))
@@ -43,7 +43,8 @@ object Flink03_Window_AggFunction {
           .timeWindow(Time.seconds(10))
 
 
-        //AggregateFunction是一个基于中间计算结果状态进行增量计算的函数。由于是迭代计算方式，所以，在窗口处理过程中，不用缓存整个窗口的数据，所以效率执行比较高。
+        // AggregateFunction是一个基于中间计算结果状态进行增量计算的函数。由于是迭代计算方式，
+        // 所以，在窗口处理过程中，不用缓存整个窗口的数据，所以效率执行比较高。
         aggDS.aggregate(new AggregateFunction[(String, Int), Long, Long] {
             override def createAccumulator(): Long = 0L
 
@@ -66,5 +67,6 @@ object Flink03_Window_AggFunction {
         env.execute()
     }
 
-    case class WaterSensor (id: String, ts: Long, vc: Int)
+    case class WaterSensor(id: String, ts: Long, vc: Int)
+
 }

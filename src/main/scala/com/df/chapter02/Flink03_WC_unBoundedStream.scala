@@ -9,7 +9,7 @@ object Flink03_WC_unBoundedStream {
         val env = StreamExecutionEnvironment.getExecutionEnvironment
 
         // 读取数据来源
-        val socket = env.socketTextStream("localhost",9999)
+        val socket = env.socketTextStream("localhost", 9999)
 
         // 对数据进行处理
         val lineDS: DataStream[String] = socket.flatMap(a => a.split(" "))

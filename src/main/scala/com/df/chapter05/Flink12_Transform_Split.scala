@@ -36,4 +36,5 @@ object Flink12_Transform_Split {
     }
 
     case class WaterSensor(id: String, ts: Long, vc: Int)
+
 }

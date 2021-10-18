@@ -29,6 +29,7 @@ object Flink04_Source_MySource {
     // 自定义数据源
     class MySourceFunction extends SourceFunction[WaterSensor] {
         var flag = true
+
         override def run(ctx: SourceFunction.SourceContext[WaterSensor]): Unit = {
             while (flag) {
                 ctx.collect(

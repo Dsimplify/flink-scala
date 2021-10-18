@@ -6,7 +6,7 @@ import org.apache.flink.util.Collector
 
 import scala.collection.mutable
 
-object Flink25_Case_PVByFlatMap{
+object Flink25_Case_PVByFlatMap {
     def main(args: Array[String]): Unit = {
 
         //1. 创建执行环境
@@ -17,14 +17,14 @@ object Flink25_Case_PVByFlatMap{
         //转换为样例类
         logDS
           .flatMap(
-            line => {
-                val data: mutable.ArrayOps[String] = line.split(",")
-                if (data(3) == "pv") {
-                    List(("pv", 1L))
-                }else {
-                    Nil
-                }
-            }
+              line => {
+                  val data: mutable.ArrayOps[String] = line.split(",")
+                  if (data(3) == "pv") {
+                      List(("pv", 1L))
+                  } else {
+                      Nil
+                  }
+              }
           )
           .keyBy(_._1)
           .sum(1)

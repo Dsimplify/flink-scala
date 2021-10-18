@@ -29,13 +29,13 @@ object Flink10_Transform_KeyBy {
 
         //val value: DataStream[WaterSensor] = mapDS.keyBy(0).min(2)
 
-//        val sensorKS: KeyedStream[WaterSensor, String] = mapDS.keyBy(
-//            new KeySelector[WaterSensor, String] {
-//                override def getKey(value: WaterSensor): String = {
-//                    value.id
-//                }
-//            }
-//        )
+        //        val sensorKS: KeyedStream[WaterSensor, String] = mapDS.keyBy(
+        //            new KeySelector[WaterSensor, String] {
+        //                override def getKey(value: WaterSensor): String = {
+        //                    value.id
+        //                }
+        //            }
+        //        )
 
         value1.print()
 
@@ -44,4 +44,5 @@ object Flink10_Transform_KeyBy {
     }
 
     case class WaterSensor(id: String, ts: Long, vc: Int)
+
 }

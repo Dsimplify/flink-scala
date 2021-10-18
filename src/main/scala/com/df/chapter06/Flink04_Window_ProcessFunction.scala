@@ -24,14 +24,14 @@ object Flink04_Window_ProcessFunction {
 
         dataWS.process(
             new ProcessWindowFunction[(String, Int), String, String, TimeWindow] {
-            override def process(key: String, context: Context, elements: Iterable[(String, Int)], out: Collector[String]): Unit = {
-                out.collect(
-                    "当前的key是=" + key
-                      + "，属于窗口[" + context.window.getStart + "," + context.window.getEnd
-                      + "],一共有数据" + elements.size + "条数据"
-                )
-            }
-        }).print()
+                override def process(key: String, context: Context, elements: Iterable[(String, Int)], out: Collector[String]): Unit = {
+                    out.collect(
+                        "当前的key是=" + key
+                          + "，属于窗口[" + context.window.getStart + "," + context.window.getEnd
+                          + "],一共有数据" + elements.size + "条数据"
+                    )
+                }
+            }).print()
 
         // 4.执行
         env.execute()

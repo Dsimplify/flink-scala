@@ -18,10 +18,10 @@ object Flink27_Case_APP_DownloadAnalysis {
         val filterDS: DataStream[MarketingUserBehavior] = inputDS.filter(_.behavior == "DOWNLOAD")
 
         filterDS
-            .map(a => (a.channel, 1))
-            .keyBy(_._1)
-            .sum(1)
-            .print()
+          .map(a => (a.channel, 1))
+          .keyBy(_._1)
+          .sum(1)
+          .print()
 
 
         inputDS.print()

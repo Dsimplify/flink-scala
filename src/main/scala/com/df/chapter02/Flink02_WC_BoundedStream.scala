@@ -7,7 +7,7 @@ object Flink02_WC_BoundedStream {
 
         //1. 创建环境（流处理）
         val env: StreamExecutionEnvironment = StreamExecutionEnvironment.getExecutionEnvironment
-//        env.setParallelism(1)
+        //        env.setParallelism(1)
 
         //2. 读取数据
         val data1: DataStream[String] = env.readTextFile("input/word.txt")

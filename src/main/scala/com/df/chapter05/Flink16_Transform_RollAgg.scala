@@ -24,7 +24,7 @@ object Flink16_Transform_RollAgg {
         val dataDS: DataStream[(String, Long, Int)] = mapDS.map(a => (a.id, a.ts, a.vc))
         val keyDS: KeyedStream[(String, Long, Int), String] = dataDS.keyBy(_._1)
 
-        val minDS: DataStream[(String, Long, Int)] = keyDS.minBy( 2)
+        val minDS: DataStream[(String, Long, Int)] = keyDS.minBy(2)
         val maxDS: DataStream[(String, Long, Int)] = keyDS.max(2)
 
         val sumDS: DataStream[(String, Long, Int)] = keyDS.sum(2)
@@ -37,7 +37,7 @@ object Flink16_Transform_RollAgg {
 
         //minDS.print("min")
         //maxDS.print()
-//        sumDS.print("sum")
+        //        sumDS.print("sum")
 
         env.execute()
 

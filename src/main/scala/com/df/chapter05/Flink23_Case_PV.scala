@@ -3,7 +3,6 @@ package com.df.chapter05
 import org.apache.flink.streaming.api.scala._
 
 
-
 object Flink23_Case_PV {
     def main(args: Array[String]): Unit = {
 
@@ -40,6 +39,7 @@ object Flink23_Case_PV {
      * UserBehavior的样例类
      */
     case class UserBehavior01(userId: Int, itemId: Int, categoryId: Int, behavior: String, timestamp: Long)
+
 }
 
 

@@ -11,7 +11,7 @@ object Flink05_TimeCharacteristic_EventTime {
     def main(args: Array[String]): Unit = {
 
         // window触发计算条件
-        // 1. watermark时间（max_eventTime-t）>= window_end_time // t:延迟时间
+        // 1. watermark时间（max_eventTime - t）>= window_end_time // t:延迟时间
         // 2. 在[window_start_time,window_end_time)区间中有数据存在，注意是左闭右开的区间
 
         // 1.创建执行环境
@@ -51,5 +51,6 @@ object Flink05_TimeCharacteristic_EventTime {
         env.execute()
     }
 
-    case class WaterSensor (id: String, ts: Long, vc: Int)
+    case class WaterSensor(id: String, ts: Long, vc: Int)
+
 }

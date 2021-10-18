@@ -9,7 +9,7 @@ import scala.collection.mutable
 
 
 /**
- *   业务系统 和 交易系统 实时对账
+ * 业务系统 和 交易系统 实时对账
  */
 object Flink31_Case_OrderTxAnalysis {
     def main(args: Array[String]): Unit = {
@@ -71,9 +71,9 @@ object Flink31_Case_OrderTxAnalysis {
             val maybeTxEvent: Option[TxEvent] = txMap.get(value.txId)
             if (maybeTxEvent isEmpty) {
                 orderMap.put(value.txId, value)
-            }else {
+            } else {
                 out.collect("订单[" + value.txId + "]对账成功")
-               txMap.remove(value.txId)
+                txMap.remove(value.txId)
             }
         }
 
@@ -81,7 +81,7 @@ object Flink31_Case_OrderTxAnalysis {
             val maybeOrderEvent: Option[OrderEvent] = orderMap.get(value.txId)
             if (maybeOrderEvent isEmpty) {
                 txMap.put(value.txId, value)
-            }else {
+            } else {
                 out.collect("订单[" + value.txId + "]对账成功")
                 orderMap.remove(value.txId)
             }
@@ -92,6 +92,7 @@ object Flink31_Case_OrderTxAnalysis {
 
     /**
      * 订单系统数据的样例类
+     *
      * @param orderId   订单id
      * @param eventType 行为类型：下单，支付
      * @param txId      交易码: 用来唯一标识某一笔交易，用来与交易系统连接
@@ -101,9 +102,11 @@ object Flink31_Case_OrderTxAnalysis {
 
     /**
      * 交易系统数据的样例类
-     * @param txId        交易码
-     * @param payChannel  支付渠道：微信、支付宝
-     * @param eventTime   时间时间：产生数据的时间
+     *
+     * @param txId       交易码
+     * @param payChannel 支付渠道：微信、支付宝
+     * @param eventTime  时间时间：产生数据的时间
      */
     case class TxEvent(txId: String, payChannel: String, eventTime: Long)
+
 }

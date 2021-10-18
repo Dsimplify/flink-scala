@@ -41,4 +41,5 @@ object Flink17_Transform_Reduce {
     }
 
     case class WaterSensor(id: String, ts: Long, vc: Int)
+
 }

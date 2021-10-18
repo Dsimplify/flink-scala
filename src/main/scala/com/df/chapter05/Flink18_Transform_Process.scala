@@ -22,7 +22,7 @@ object Flink18_Transform_Process {
             }
         )
 
-       val keyDS: KeyedStream[WaterSensor, String] = mapDS.keyBy(_.id)
+        val keyDS: KeyedStream[WaterSensor, String] = mapDS.keyBy(_.id)
 
         //keyDS.print()
 
@@ -36,9 +36,10 @@ object Flink18_Transform_Process {
 
     class MyKeyedProcessFunction extends KeyedProcessFunction[String, WaterSensor, String] {
         override def processElement(value: WaterSensor, ctx: KeyedProcessFunction[String, WaterSensor, String]#Context, out: Collector[String]): Unit = {
-            out.collect("分组key = " + ctx.getCurrentKey + "," + "value = " + value )
+            out.collect("分组key = " + ctx.getCurrentKey + "," + "value = " + value)
         }
     }
 
     case class WaterSensor(id: String, ts: Long, vc: Int)
+
 }

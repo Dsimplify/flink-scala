@@ -34,19 +34,20 @@ object Flink24_Case_PVByProcess {
 
         //
         userFilter
-            .map(d => ("pv", 1))
-            .keyBy(_._1)
-            .process(
-                new KeyedProcessFunction[String, (String, Int), Int] {
+          .map(d => ("pv", 1))
+          .keyBy(_._1)
+          .process(
+              new KeyedProcessFunction[String, (String, Int), Int] {
 
-                    private val longs: ListBuffer[Long] = mutable.ListBuffer[Long]()
-                    override def processElement(value: (String, Int), ctx: KeyedProcessFunction[String, (String, Int), Int]#Context, out: Collector[Int]): Unit = {
-                        longs.append(value._2)
-                        out.collect(longs.size)
-                    }
-                }
-            )
-            .print()
+                  private val longs: ListBuffer[Long] = mutable.ListBuffer[Long]()
+
+                  override def processElement(value: (String, Int), ctx: KeyedProcessFunction[String, (String, Int), Int]#Context, out: Collector[Int]): Unit = {
+                      longs.append(value._2)
+                      out.collect(longs.size)
+                  }
+              }
+          )
+          .print()
 
 
 
@@ -57,4 +58,5 @@ object Flink24_Case_PVByProcess {
     }
 
     case class UserBehavior02(userId: Long, itemId: Long, categoryId: Int, behavior: String, timestamp: Long)
+
 }

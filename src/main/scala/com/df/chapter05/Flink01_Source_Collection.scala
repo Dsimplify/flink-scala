@@ -28,4 +28,5 @@ object Flink01_Source_Collection {
     // ts:时间戳
     // vc:空高
     case class WaterSensor(id: String, ts: Long, vc: Int)
+
 }

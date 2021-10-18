@@ -15,10 +15,16 @@ object Flink02_Window_CountWindow {
 
         // 3.处理数据
         socketDS
+          .flatMap(
+              line => {
+                  val lines: Array[String] = line.split(" ")
+                  lines
+              }
+          )
           .map(data => (data, 1))
           .keyBy(_._1)
           .countWindow(3) // 滚动窗口
-          //.countWindow(3 ,2)
+          //          .countWindow(3 ,2)  // 滑动窗口
           .sum(1)
           .print()
 

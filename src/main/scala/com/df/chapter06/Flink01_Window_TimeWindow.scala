@@ -15,11 +15,12 @@ object Flink01_Window_TimeWindow {
 
         // 3.处理数据
         socketDS
-          .map((_, 1))
-          .keyBy(_._1)
-          //.timeWindow(Time.seconds(3))  //(滚动窗口)
-          //.timeWindow(Time.seconds(3),Time.seconds(2)) //(滑动窗口)
-          .window(ProcessingTimeSessionWindows.withGap(Time.seconds(2)))
+          .flatMap(_.split(" "))
+          .map(a => (a, 1))
+          .keyBy(0)
+          //          .timeWindow(Time.seconds(3))   // 滚动窗口
+          //          .timeWindow(Time.seconds(5), Time.seconds(1))   // 滑动窗口
+          .window(ProcessingTimeSessionWindows.withGap(Time.seconds(3))) // 会话窗口
           .sum(1)
           .print()
 

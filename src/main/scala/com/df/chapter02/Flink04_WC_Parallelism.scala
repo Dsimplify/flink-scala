@@ -1,7 +1,6 @@
 package com.df.chapter02
 
 
-
 import org.apache.flink.streaming.api.scala._
 
 object Flink04_WC_Parallelism {
@@ -10,7 +9,7 @@ object Flink04_WC_Parallelism {
         val env: StreamExecutionEnvironment = StreamExecutionEnvironment.getExecutionEnvironment
 
         // 读取数据
-        val socket: DataStream[String] = env.socketTextStream("localhost",9999)
+        val socket: DataStream[String] = env.socketTextStream("localhost", 9999)
 
         // 处理数据
         val wordDS: DataStream[String] = socket.flatMap(_.split(" ")).setParallelism(2)

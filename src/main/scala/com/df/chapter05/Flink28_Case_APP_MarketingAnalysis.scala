@@ -55,4 +55,5 @@ object Flink28_Case_APP_MarketingAnalysis {
                                       behavior: String,
                                       channel: String,
                                       timestamp: Long)
+
 }

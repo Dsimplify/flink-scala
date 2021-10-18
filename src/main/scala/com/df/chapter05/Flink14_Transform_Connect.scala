@@ -20,10 +20,9 @@ object Flink14_Transform_Connect {
             }
         )
 
-        val numDS: DataStream[Int] = env.fromCollection(List(1,2,3,4,5,6))
+        val numDS: DataStream[Int] = env.fromCollection(List(1, 2, 3, 4, 5, 6))
 
         val resultDS: ConnectedStreams[WaterSensor, Int] = mapDS.connect(numDS)
-
 
 
         resultDS.map(

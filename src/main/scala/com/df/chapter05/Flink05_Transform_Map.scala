@@ -25,4 +25,5 @@ object Flink05_Transform_Map {
     }
 
     case class WaterSensor(id: String, ts: Long, vc: Int)
+
 }

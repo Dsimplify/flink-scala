@@ -20,7 +20,7 @@ object Flink13_Transform_Select {
         val splitSS: SplitStream[WaterSensor] = mapDS.split(
             sensor => {
                 if (sensor.vc < 50) {
-                    Seq("normal","hahahaha")
+                    Seq("normal", "hahahaha")
                 } else if (sensor.vc < 80) {
                     Seq("Warn")
                 } else {
@@ -30,14 +30,15 @@ object Flink13_Transform_Select {
         )
 
         splitSS.select("Warn").print()
-//
-//        splitSS.select("hahahaha").print("normal")
-//        splitSS.select("Warn").print("Warn")
-//        splitSS.select("alarm").print("alarm")
+        //
+        //        splitSS.select("hahahaha").print("normal")
+        //        splitSS.select("Warn").print("Warn")
+        //        splitSS.select("alarm").print("alarm")
 
         // 4. 开始执行
         env.execute()
     }
 
     case class WaterSensor(id: String, ts: Long, vc: Int)
+
 }
